@@ -9,8 +9,12 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
+    "ejs-locals": "^1.0.2",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "ibm_db": "^2.6.0",
+    "morgan": "~1.9.1",
+    "cfenv": "^1.2.2",
+    "install": "^0.13.0"
   }
 }
