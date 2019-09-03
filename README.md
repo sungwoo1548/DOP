@@ -17,11 +17,21 @@
     2. ibmcloud용 package.json 추가
     3. npm install로 node_modules 설치
     4. ejs-locals 환경 구축
+        4.1. /dop 처리용 router 생성 (dop_zero/routes/dopRouter.js)
+        4.2. ejs-locals layout 생성 (dop_zero/views/layout)
+        4.3. DB read page 생성 (dop_zero/views/showdata.ejs)
+    5. 이 셋팅은 각자의 ibmcloud SDK for Node.js에 push 하려면
+        manifest.yml 파일의 name을 자신의 ibm app 이름으로 저장해야 가능 (ibmcloud cf push)
 
 ### 1.3 git branch 개발 1차 목표 ( ~ 20190905)
-* back-end : ibm DB 연동 및 data type결정, table 설계 초안, 경쟁사 분석
-* front-end : web-map-view api 연동, data visualizing chart
-* moblie : mobile-map-vie api 연동, background-runnig 구현
+* 각 업무별 담담 팀은 master에서 branch를 만들어 작업한다.
+* master 를 git clone을 사용하여 복사한다. ( 컴퓨터에 프로젝트 폴더 생성 후 안에서 VS code 실행 후 터미널에 git clone https://github.com/sungwoo1548/DOP.git 입력)
+* branch 생성 git branch <branch이름>
+* head branch로 이동 ( git checkout <branch이름> ) 
+* branch push 하기 ( git push orign <branch이름> )    ****꼭 branch push 요망...
 
+    1. back-end : ibm DB 연동 및 data type결정, table 설계 초안, 경쟁사 분석
+    2. front-end : web-map-view api 연동, data visualizing chart
+    3. moblie : mobile-map-vie api 연동, background-runnig 구현
 
 ## step 2. dop_alpha 개발 (추석 이후~)
