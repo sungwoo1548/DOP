@@ -1,0 +1,5 @@
+---
+applications:
+ - name: <ibm-app name>
+   random-route: true
+   memory: 128M
