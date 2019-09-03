@@ -1,0 +1,28 @@
+<% layout('layout/layout')%>
+
+<div class="container text-truncate">
+    <h1>데이터 조회 페이지 입니다.</h1>
+</div>
+
+<hr />
+<div class="container">
+    <h1>데이터 목록</h1>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>USERID</th>
+                <th>GEODATA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%data.forEach(function(el,idx) { %>
+            <tr>
+                <td><%=idx%></td>
+                <td class="text-truncate" style="max-width: 100px;"><%=el.USERID%></td>
+                <td class="text-truncate" style="max-width: 350px;"><%=el.GEODATA%></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
