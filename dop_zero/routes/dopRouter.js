@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var ibmdb = require("ibm_db");
 
-var dsn = "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bjr81526;PWD=qsl^240pblh3qnmx;";
+// var dsn2 = "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bjr81526;PWD=qsl^240pblh3qnmx;";
+var dsn = require("../DBconfig");
 
 // var app = express();
 
@@ -44,9 +45,10 @@ router.get('/readDB', (req, res, next) => {
             return;
         }
         // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
-        connection.query("select * from test", function (err1, readData) {
+        connection.query("select * from geotest", function (err1, readData) {
             if (err1) console.log(err1); // 에러처리
             else {
+                console.log(JSON.parse(readData[15].GEODATA));
                 res.render('showdata', { data: readData }) // showdata 페이지 렌더
             }
             connection.close(function (err2) {
