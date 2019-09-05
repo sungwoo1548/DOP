@@ -49,7 +49,8 @@ router.get('/readDB', (req, res, next) => {
             if (err1) console.log(err1); // 에러처리
             else {
                 console.log(JSON.parse(readData[15].GEODATA));
-                res.render('showdata', { data: readData }) // showdata 페이지 렌더
+                res.json(readData);
+                //res.render('showdata', { data: readData }) // showdata 페이지 렌더
             }
             connection.close(function (err2) {
                 if (err2) console.log(err2); // 에러처리
