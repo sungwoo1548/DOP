@@ -49,22 +49,17 @@ router.get('/readDB', (req, res, next) => {
             if (err1) console.log(err1); // 에러처리
             else {
                 let prams = [];
-                // for (let i = 0; i > readData.length; i++) {
-                //     for (let j = 0; j > readData.length; j++) {
-                //         prams.push(readData[i][j].timestamp, readData[i][j].longitude, readData[i][j].latitude);
-                //     }
-                // }
-                
-                //console.log(JSON.parse(readData[15].GEODATA).coords.longitude);
+
                 for (let i = 10; i < readData.length; i++) {
-                    prams[i] = {
-                        timestamp: Date(1000*(JSON.parse(readData[i].GEODATA).timestamp)),
+                    let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
+                    let fDate = new Date(transDate);
+
+                    prams.push({
+                        timestamp: fDate.toLocaleString(),
                         longitude: JSON.parse(readData[i].GEODATA).coords.longitude,
                         latitude: JSON.parse(readData[i].GEODATA).coords.latitude,
-                    }
+                    });
                 }
-
-                console.log(prams);
 
                 res.json(prams);
                 //res.render('showdata', { data: readData }) // showdata 페이지 렌더
