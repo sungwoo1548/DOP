@@ -13,28 +13,28 @@ router.get('/', (req, res, next) => {
 });
 
 // DB 저장 (inser into)
-// app.post('/insertDB', (req, res, next) => {
-//     ibmdb.open(cn, function (err, conn) {
-//         conn.prepare("insert into geotest (userid, geodata) VALUES (?, ?)", function (err, stmt) {
-//             if (err) { //에러처리
-//                 console.log(err);
-//                 return conn.closeSync();
-//             }
-
-//             var geodata_json = { DataType: "BLOB", "Data": JSON.stringify(req.body) };  // ibm DB2에 json 형식 insert 문법.
-//             stmt.execute(['321', geodata_json], function (err, result) {
-//                 if (err) console.log(err); // 에러처리
-//                 else {
-//                     res.send("good");
-//                     result.closeSync();
-//                 }
-
-//                 //Close the connection
-//                 conn.close(function (err) { });
-//             });
-//         });
-//     });
-// })
+router.post('/insertDB', (req, res, next) => {
+    ibmdb.open(dsn, function (err, conn) {
+        conn.prepare("insert into geotest (userid, geodata) VALUES (?, ?)", function (err, stmt) {
+            if (err) { //에러처리
+                console.log(err);
+                return conn.closeSync();
+            }
+            
+            var geodata_json = { DataType: "BLOB", "Data": JSON.stringify(req.body) };  // ibm DB2에 json 형식 insert 문법.
+            stmt.execute(['321', geodata_json], function (err, result) {
+                if (err) console.log(err); // 에러처리
+                else {
+                    console.log(req.body);
+                    res.json(req.body);
+                    result.closeSync();
+                }
+                //Close the connection
+                conn.close(function (err) { });
+            });
+        });
+    });
+})
 
 
 // DB 읽기 (select)
