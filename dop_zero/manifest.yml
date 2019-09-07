@@ -1,5 +1,5 @@
 ---
 applications:
- - name: <ibm-app name>
+ - name: lab-test-go-0830
    random-route: true
-   memory: 256M
+   memory: 128M
