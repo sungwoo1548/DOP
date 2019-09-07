@@ -20,12 +20,14 @@ router.post('/insertDB', (req, res, next) => {
                 console.log(err);
                 return conn.closeSync();
             }
-            
-            var geodata_json = { DataType: "BLOB", "Data": JSON.stringify(req.body) };  // ibm DB2에 json 형식 insert 문법.
-            stmt.execute(['321', geodata_json], function (err, result) {
+
+            var userid = req.body.userid;
+            var geodata_json = { DataType: "BLOB", "Data": JSON.stringify(req.body.gps) };  // ibm DB2에 json 형식 insert 문법.
+            stmt.execute([userid, geodata_json], function (err, result) {
                 if (err) console.log(err); // 에러처리
                 else {
                     console.log(req.body);
+                    req.body.msg = "잘 전송됨";
                     res.json(req.body);
                     result.closeSync();
                 }
