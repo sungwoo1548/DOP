@@ -45,24 +45,26 @@ router.get('/readDB', (req, res, next) => {
             return;
         }
         // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
-        connection.query("select geodata from geotest", function (err1, readData) {
+        connection.query("select * from geotest", function (err1, readData) {
             if (err1) console.log(err1); // 에러처리
             else {
                 let prams = [];
 
-                for (let i = 10; i < readData.length; i++) {
+                // Date 함수 생성자 호출을 하여 사용해야 입력한 값의 시간을 출력한다.
+                for (let i = 0; i < readData.length; i++) {
                     let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
                     let fDate = new Date(transDate);
 
                     prams.push({
+                        userid: readData[i].USERID,
                         timestamp: fDate.toLocaleString(),
-                        longitude: JSON.parse(readData[i].GEODATA).coords.longitude,
-                        latitude: JSON.parse(readData[i].GEODATA).coords.latitude,
+                        longitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.longitude),
+                        latitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.latitude),
                     });
                 }
 
                 res.json(prams);
-                //res.render('showdata', { data: readData }) // showdata 페이지 렌더
+                // res.render('showdata', { data: readData }) // showdata 페이지 렌더
             }
             connection.close(function (err2) {
                 if (err2) console.log(err2); // 에러처리
