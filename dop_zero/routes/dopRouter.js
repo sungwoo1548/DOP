@@ -49,20 +49,24 @@ router.get('/readDB', (req, res, next) => {
             if (err1) console.log(err1); // 에러처리
             else {
                 let prams = [];
+                let idx=0;
 
                 // Date 함수 생성자 호출을 하여 사용해야 입력한 값의 시간을 출력한다.
                 for (let i = 0; i < readData.length; i++) {
-                    let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
+                    let transDate = (JSON.parse(readData[i].GEODATA).timestamp)+(1000*60*60*9);
                     let fDate = new Date(transDate);
+                    idx += 1;
 
                     prams.push({
+                        idx: String(idx),
                         userid: readData[i].USERID,
                         timestamp: fDate.toLocaleString(),
+                        timestamp_orignal: JSON.parse(readData[i].GEODATA).timestamp,
                         longitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.longitude),
                         latitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.latitude),
                     });
                 }
-
+                
                 res.json(prams);
                 // res.render('showdata', { data: readData }) // showdata 페이지 렌더
             }
