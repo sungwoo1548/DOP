@@ -6,15 +6,18 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "cfenv": "^1.2.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "ejs-locals": "^1.0.2",
     "express": "~4.16.1",
+    "fabric-ca-client": "~1.4.0",
+    "fabric-client": "~1.4.0",
+    "fabric-network": "^1.4.4",
     "http-errors": "~1.6.3",
-    "ibm_db": "^2.6.0",
-    "morgan": "~1.9.1",
-    "cfenv": "^1.2.2",
-    "install": "^0.13.0"
+    "ibm_db": "^2.6.1",
+    "install": "^0.13.0",
+    "morgan": "~1.9.1"
   }
 }

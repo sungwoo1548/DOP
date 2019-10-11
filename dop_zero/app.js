@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/dop', require('./routes/dopRouter')); // .../dop url 접속 처리
+app.use('/mission', require('./routes/mission'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
