@@ -3,9 +3,9 @@ var router = express.Router();
 var ibmdb = require("ibm_db");
 
 // var dsn2 = "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bjr81526;PWD=qsl^240pblh3qnmx;";
-// var dsn = require("../DBconfig")//;
+var dsn = require("../DBconfig")//;
 
-// const crypto = require('crypto');
+const crypto = require('crypto');
 
 // var app = express();
 
@@ -44,7 +44,7 @@ module.exports = router;
 //     });
 // })
 
-/*
+
 // DB 읽기 (select)
 router.get('/readDB', (req, res, next) => {
     ibmdb.open(dsn, function (err, connection) {
@@ -125,9 +125,7 @@ router.get('/setUser', (req, res, next) => {
             });
         });
     });
-
 });
-*/
 
 // import Sha256 from '//cdn.jsdelivr.net/gh/chrisveness/crypto@latest/sha256.js';
 

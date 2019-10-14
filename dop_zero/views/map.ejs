@@ -1,0 +1,95 @@
+<% layout('layout/layout')%>
+
+<div class="container">
+
+  <div id="map" style="width:80%;height:550px;"></div>
+  <select id = 'useridBar' onchange="alert(this.value)">
+    <!-- <option value = '' selected>ID 선택을 바랍니다. </option> -->
+    <option value=""></option>
+    <% for(let i = 0; i < data[1].useridList.length; i++) { %>
+        <option value = '<%= data[1].useridList[4] %>'selected><%= data[1].useridList[i] %></option>
+    <% } %>
+  </select>
+  <button id="show_marker" onclick="showmarker()">test show marker</button><button id="hide_marker" onclick="hidemarker()">test hide marker</button>
+  <div id="clickLatlng"></div>
+<div id="map" style="width:500px;height:400px;"></div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8247f6e8473693e3056467b3f090d9a&libraries=services,clusterer,drawing"></script>
+<script>
+  var container = document.getElementById('map');
+  var options = {
+    center: new kakao.maps.LatLng(37.501285194968105 , 127.03959618152099 ),
+    level: 3
+  };
+
+  var map = new kakao.maps.Map(container, options);
+
+  
+  var linePath = [];
+  var userid = $('#useridBar').val();
+// 마커를 표시할 위치와 title 객체 배열입니다 
+  var positions = [];
+  <%data[0].geodata.forEach(function(el,idx) { %>
+    if(userid==="<%=data[0].geodata[idx][0]%>"){
+    linePath.push(new kakao.maps.LatLng(<%=data[0].geodata[idx][2]%>,<%= data[0].geodata[idx][3]%>)),
+    positions.push("<%=data[0].geodata[idx][1]%>")
+    };
+    <% }) %>;
+  
+console.log(positions);
+
+// 지도에 표시할 선을 생성합니다
+  var polyline = new kakao.maps.Polyline({
+    path: linePath, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 3, // 선의 두께 입니다
+    strokeColor: '#FFAE00', // 선의 색깔입니다
+    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
+});
+
+function showmarker(){
+  // 지도에 선을 표시합니다
+    polyline.setMap(map);
+
+
+  for (var i = 0; i < linePath.length; i ++) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: linePath[i] // 마커의 위치
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i] // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+  }
+}
+
+function hidemarker() {
+  polyline.setMap(null);
+  marker.setMap(null);
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+function makeOverListener(map, marker, infowindow) {
+  return function() {
+      infowindow.open(map, marker);
+  };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+  return function() {
+      infowindow.close();
+  };
+}
+
+
+</script>
+</div>

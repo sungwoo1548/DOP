@@ -19,7 +19,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/user', require('./routes/userRouter'));
+app.use('/signup', require('./routes/userRouter'));
+app.use('/login', require('./routes/userRouter'));
+app.use('/findid', require('./routes/userRouter'));
+app.use('/findpw', require('./routes/userRouter'));
+
+app.use('/admin',require('./routes/dopAdmin'));
+app.use('/board',require('./routes/boardRouter'));
+
 app.use('/dop', require('./routes/dopRouter')); // .../dop url 접속 처리
 app.use('/mission', require('./routes/mission'));
 

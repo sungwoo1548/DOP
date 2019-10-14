@@ -6,3 +6,53 @@ body {
 a {
   color: #00B7FF;
 }
+.caution {
+  color: #FF0000;
+  font-size: 20px;
+}
+/* 상단 로그인 state */
+*{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  list-style: none;
+  text-decoration: none;
+}
+.item{
+  border-top: 1px solid #2980b9;
+  overflow: hidden;
+}
+.btn i{
+  margin-right: 10px;
+}
+.smenu{
+  background: #333;
+  overflow: hidden;
+  transition: max-height 0.3s;
+  max-height: 0;
+}
+.smenu a{
+  display: block;
+  padding: 16px 26px;
+  color: white;
+  font-size: 14px;
+  margin: 4px 0;
+  position: relative;
+}
+.smenu a:before{
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 100%;
+  background: #3498db;
+  left: 0;
+  top: 0;
+  transition: 0.3s;
+  opacity: 0;
+}
+.smenu a:hover:before{
+  opacity: 1;
+}
+.item:target .smenu{
+  max-height: 10em;
+}

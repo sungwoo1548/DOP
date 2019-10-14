@@ -1,0 +1,72 @@
+<% layout('layout/layout')%>
+
+<div class="container">
+    <h1>비밀번호 찾기</h1>
+    <form>
+        <div class="form-group">
+            <label for="userID">ID</label>
+            <input type="text" class="form-control" id="userID" placeholder="ID">
+        </div>
+        <label for="carrierProvider">연락처</label>
+        <div class="form-row">
+            <div class="form-group col">
+                <select class="form-control" id="carrierProvider">
+                    <option value="SKT">SKT</option>
+                    <option value="KT">KT</option>
+                    <option value="LG">LG</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <select class="form-control" id="phoneNumber1">
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="016">016</option>
+                    <option value="017">017</option>
+                    <option value="018">018</option>
+                    <option value="019">019</option>
+                </select>
+            </div>
+            <div class="form-group col-auto">
+                -
+            </div>
+            <div class="form-group col">
+                <input type="text" class="form-control" id="phoneNumber2" placeholder="">
+            </div>
+            <div class="form-group col-auto">
+                -
+            </div>
+            <div class="form-group col">
+                <input type="text" class="form-control" id="phoneNumber3" placeholder="">
+            </div>
+            <div class="form-group col-auto">
+                <input type="button" class="btn btn-primary" id="certNumSend" value="인증번호 발송">
+            </div>
+        </div>
+
+        <label for="certNum">인증번호</label>
+        <div class="form-row">
+            <div class="form-group col">
+                <input type="text" class="form-control" id="certNum" placeholder="">
+            </div>
+            <div class="form-group col-auto">
+                <input type="button" class="btn btn-primary" id="certNumCheckBtn" value="인증번호 확인">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="changePassword">새로운 비밀번호</label>
+                <input type="password" class="form-control" id="changePassword"
+                    pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" placeholder="Password">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="passwordCheck">비밀번호 확인</label>
+                <input type="password" class="form-control" id="passwordCheck" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="caution">* 비밀번호는 8 ~ 16자의 영문 대소문자, 숫자 및 특수문자 사용을 하십시오. </label><br />
+            <button id="passwordCheckBtn" class="btn btn-primary" value="">비밀번호 검증 확인</button>
+        </div>
+        <button type="submit" class="btn btn-primary">찾기</button><br /><br />
+    </form>
+</div>
