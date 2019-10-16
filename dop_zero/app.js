@@ -5,7 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var ejsLocals = require('ejs-locals'); // ejs-locals 사용
 
+var cors = require('cors');
+
 var app = express();
+
+app.use(cors());
 
 // view engine setup
 app.engine('ejs', ejsLocals); // view engine 설정

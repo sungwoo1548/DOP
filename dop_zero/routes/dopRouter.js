@@ -7,124 +7,155 @@ var dsn = require("../DBconfig")//;
 
 const crypto = require('crypto');
 
-// var app = express();
+var app = express();
 
 // main page render
 router.get('/', (req, res, next) => {
-    res.render('index');
+  res.render('index');
 });
 
-router.get('/mission', (req,res,next) => {
-    res.render('mission');
+router.get('/mission', (req, res, next) => {
+  res.render('mission');
 });
 
 module.exports = router;
 
 // DB 저장 (inser into)
-// app.post('/insertDB', (req, res, next) => {
-//     ibmdb.open(cn, function (err, conn) {
-//         conn.prepare("insert into geotest (userid, geodata) VALUES (?, ?)", function (err, stmt) {
-//             if (err) { //에러처리
-//                 console.log(err);
-//                 return conn.closeSync();
-//             }
+router.get('/insertDB', (req, res, next) => {
+  ibmdb.open(dsn, function (err, conn) {
+    // conn.prepare("insert into geotest (userid, geodata) VALUES (?, ?)", function (err, stmt) {
+    conn.prepare("insert into COMPANYS (COMPANY_ID, COMPANY_BNUM, COMPANY_TEL) VALUES (?, ?, ?)", function (err, stmt) {
+      if (err) { //에러처리
+        console.log(err);
+        return conn.closeSync();
+      }
 
-//             var geodata_json = { DataType: "BLOB", "Data": JSON.stringify(req.body) };  // ibm DB2에 json 형식 insert 문법.
-//             stmt.execute(['321', geodata_json], function (err, result) {
-//                 if (err) console.log(err); // 에러처리
-//                 else {
-//                     res.send("good");
-//                     result.closeSync();
-//                 }
-
-//                 //Close the connection
-//                 conn.close(function (err) { });
-//             });
-//         });
-//     });
-// })
+      var test_json = { DataType: "BLOB", "Data": JSON.stringify("Heelo") };  // ibm DB2에 json 형식 insert 문법.
+      stmt.execute(['ana_nana', test_json, '000-0000-0000'], function (err, result) {
+        if (err) console.log(err); // 에러처리
+        else {
+          res.send("good");
+          result.closeSync();
+        }
+        //Close the connection
+        conn.close(function (err) { });
+      });
+    });
+  });
+})
 
 
 // DB 읽기 (select)
 router.get('/readDB', (req, res, next) => {
-    ibmdb.open(dsn, function (err, connection) {
-        if (err) { // 에러처리
-            console.log(err);
-            return;
-        }
-        // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
-        connection.query("select * from geotest", function (err1, readData) {
-            if (err1) console.log(err1); // 에러처리
-            else {
-                let prams = [];
-                let idx = 0;
+  //     ibmdb.open(dsn, function (err, connection) {
+  //         if (err) { // 에러처리
+  //             console.log(err);
+  //             return;
+  //         }
+  //         // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
+  //         connection.query("select * from geotest", function (err1, readData) {
+  //             if (err1) console.log(err1); // 에러처리
+  //             else {
+  //                 let prams = [];
+  //                 let idx = 0;
 
-                // Date 함수 생성자 호출을 하여 사용해야 입력한 값의 시간을 출력한다.
-                for (let i = 0; i < readData.length; i++) {
-                    let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
-                    let fDate = new Date(transDate+(1000*60*60*9));
-                    idx += 1;
+  //                 // Date 함수 생성자 호출을 하여 사용해야 입력한 값의 시간을 출력한다.
+  //                 for (let i = 0; i < readData.length; i++) {
+  //                     let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
+  //                     let fDate = new Date(transDate+(1000*60*60*9));
+  //                     idx += 1;
 
-                    prams.push({
-                        idx: String(idx),
-                        userid: readData[i].USERID,
-                        timestamp: fDate.toLocaleString(),
-                        timestamp_original: JSON.stringify(JSON.parse(readData[i].GEODATA).timestamp),
-                        longitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.longitude),
-                        latitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.latitude),
-                    });
-                }
+  //                     prams.push({
+  //                         idx: String(idx),
+  //                         userid: readData[i].USERID,
+  //                         timestamp: fDate.toLocaleString(),
+  //                         timestamp_original: JSON.stringify(JSON.parse(readData[i].GEODATA).timestamp),
+  //                         longitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.longitude),
+  //                         latitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.latitude),
+  //                     });
+  //                 }
+  //                 res.json(prams);
+  //                 // res.render('showdata', { data: readData }) // showdata 페이지 렌더
+  //             }
+  //             connection.close(function (err2) {
+  //                 if (err2) console.log(err2); // 에러처리
+  //             });
+  //         });
+  //     });
 
-                res.json(prams);
-                // res.render('showdata', { data: readData }) // showdata 페이지 렌더
-            }
-            connection.close(function (err2) {
-                if (err2) console.log(err2); // 에러처리
-            });
+  let missions = [];
+  ibmdb.open(dsn, function (err, connection) {
+    if (err) { // 에러처리
+      console.log(err);
+      return;
+    }
+    // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
+    connection.query("select * from geotest", function (err1, readData) {
+      if (err1) console.log(err1); // 에러처리
+      else {
+        let transDate = (JSON.parse(readData[0].GEODATA).timestamp);
+        let fDate = new Date(transDate + (1000 * 60 * 60 * 9));
+        let idx = 0;
+
+        missions.push({
+          idx: String(idx),
+          userid: readData[0].USERID,
+          timestamp: fDate.toLocaleString(),
+          timestamp_original: JSON.stringify(JSON.parse(readData[0].GEODATA).timestamp),
+          longitude: JSON.stringify(JSON.parse(readData[0].GEODATA).coords.longitude),
+          latitude: JSON.stringify(JSON.parse(readData[0].GEODATA).coords.latitude),
         });
+      }
+      connection.close(function (err2) {
+        if (err2) console.log(err2); // 에러처리
+      });
     });
+  });
 });
 
 router.get('/setUser', (req, res, next) => {
-    var setId = req.query.id;
+  var setId = req.query.id;
 
-    ibmdb.open(dsn, function (err, connection) {
-        if (err) { // 에러처리
-            console.log(err);
-            return;
+  ibmdb.open(dsn, function (err, connection) {
+    if (err) { // 에러처리
+      console.log(err);
+      return;
+    }
+    // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
+    connection.query("select * from geotest where USERID='" + setId + "'", function (err1, readData) {
+      if (err1) console.log(err1); // 에러처리
+      else {
+        let prams = [];
+        let idx = 0;
+
+        prams.push([setId]);
+        prams.push([]);
+        console.log(prams);
+        // Date 함수 생성자 호출을 하여 사용해야 입력한 값의 시간을 출력한다.
+        for (let i = 0; i < readData.length; i++) {
+          let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
+          let fDate = new Date(transDate);
+          idx += 1;
+
+          prams[1].push({
+            //prams.push({
+            idx: String(idx),
+            timestamp: JSON.stringify(JSON.parse(readData[i].GEODATA).timestamp),
+            longitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.longitude),
+            latitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.latitude),
+          });
         }
-        // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
-        connection.query("select * from geotest where USERID='" + setId + "'", function (err1, readData) {
-            if (err1) console.log(err1); // 에러처리
-            else {
-                let prams = [];
-                let idx = 0;
+        //console.log(prams);
 
-                console.log(prams);
-                // Date 함수 생성자 호출을 하여 사용해야 입력한 값의 시간을 출력한다.
-                for (let i = 0; i < readData.length; i++) {
-                    let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
-                    let fDate = new Date(transDate);
-                    idx += 1;
-
-                    prams.push({
-                    //prams.push({
-                        idx: String(idx),
-                        timestamp: JSON.stringify(JSON.parse(readData[i].GEODATA).timestamp),
-                        longitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.longitude),
-                        latitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.latitude),
-                    });
-                }
-                //console.log(prams);
-
-                res.json(prams);
-                //res.render('showdata', { data: readData }) // showdata 페이지 렌더
-            }
-            connection.close(function (err2) {
-                if (err2) console.log(err2); // 에러처리
-            });
-        });
+        res.json(prams);
+        //res.render('showdata', { data: readData }) // showdata 페이지 렌더
+      }
+      connection.close(function (err2) {
+        if (err2) console.log(err2); // 에러처리
+      });
     });
+  });
+
 });
 
 // import Sha256 from '//cdn.jsdelivr.net/gh/chrisveness/crypto@latest/sha256.js';
@@ -150,3 +181,4 @@ router.get('/setUser', (req, res, next) => {
 //    //     .then(function (txt) { document.querySelector('#src-code').textContent = txt; prettyPrint(); })
 //    //     .catch(function (err) { document.querySelector('#error').textContent = err.message; });
 // });
+

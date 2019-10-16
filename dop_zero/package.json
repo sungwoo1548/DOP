@@ -8,6 +8,7 @@
   "dependencies": {
     "cfenv": "^1.2.2",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "ejs-locals": "^1.0.2",

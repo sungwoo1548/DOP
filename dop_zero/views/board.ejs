@@ -127,7 +127,7 @@
                             @
                         </div>
                         <div class="form-group col">
-                            <select class="form-control" id="managerEmail1">
+                            <select class="form-control" id="managerEmail2">
                                 <option value="">도메인 선택을 바랍니다. </option>
                                 <option value="@naver.com">naver.com</option>
                                 <option value="@hanmail.net">hanmail.net</option>
@@ -144,7 +144,7 @@
 
                 <div class="mb-3">
                     <label for="mission_condition">미션조건</label>
-                    <input type="text" class="form-control" name="missionCondition" id="missionCondition" placeholder="미션조건을 입력해 주세요">
+                    <input type="text" class="form-control" name="missionRule" id="missionRule" placeholder="미션조건을 입력해 주세요">
                 </div>
         
                 <div class="mb-3">
@@ -163,8 +163,8 @@
                 </div>
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile02" accept="image/jpeg" multiple="multiple">
-                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose images file</label>
+                        <input type="file" class="custom-file-input" id="inputGroupFile" accept="image/jpeg" multiple="multiple">
+                        <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon02">Choose images file</label>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -189,25 +189,25 @@
                     <br>
                     <form>
                     <a>1.</a><input type="checkbox" name="surveyCheck" onclick="checkable(this.form)"></input>
-                    <input type="text" class="form-control" name="survey" id="survey" disabled>
+                    <input type="text" class="form-control" name="survey1" id="survey1" disabled>
                     </form>
                     <br>
                     <form>
                     <a>2.</a><input type="checkbox" name="surveyCheck" onclick="checkable(this.form)" ></input>
-                    <input type="text" class="form-control" name="survey" id="survey" disabled>
+                    <input type="text" class="form-control" name="survey2" id="survey2" disabled>
                     </form>
                     <br>
                     <form>
                     <a>3.</a><input type="checkbox" name="surveyCheck" onclick="checkable(this.form)"></input>
-                    <input type="text" class="form-control" name="survey" id="survey" disabled>
+                    <input type="text" class="form-control" name="survey3" id="survey3" disabled>
                     </form>
                     <br>
                 </div>
             </form>
-        
+
             <div >
-                <button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-                <button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnSave" onclick="missionInsert()">저장</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="location.reload()">목록</button>
             </div>
         </div>
     </div>
