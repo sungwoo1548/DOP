@@ -34,7 +34,13 @@
     2. front-end : web-map-view api 연동, data visualizing chart
     3. moblie : mobile-map-vie api 연동, background-runnig 구현
 
-### 1.4 개발결과
+### 1.4 ibmcloud 업로드 주의사항
+
+* **.cfignore** 숨겨진 파일을 dop_zero 디렉토리에 넣어줘야한다.
+  * Why?? -> 없으면 node_module 까지 한꺼번에 업로드 한다. 그러니 꼭 써주도록.
+    (.cfignore을 수정하면 업로드 필터링 할 수 있을 것이다. 자세한 내용은 다음 기회에)
+
+### 1.5 개발결과
 
 * 경쟁사 비교
   ![DOP_Lympo_간단비교](https://user-images.githubusercontent.com/50816203/64240604-1e4f9f00-cf3d-11e9-9fa4-fa1b06052865.jpg)
