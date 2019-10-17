@@ -45,7 +45,14 @@ app.use('/board',require('./routes/boardRouter'));
 app.use('/dop', require('./routes/dopRouter')); // .../dop url 접속 처리
 app.use('/mission', require('./routes/mission'));
 
+<<<<<<< HEAD
 //
+=======
+<<<<<<< HEAD
+=======
+//
+>>>>>>> master
+>>>>>>> merge_1
 app.use('/app', require('./routes/appRouter'));
 
 // catch 404 and forward to error handler

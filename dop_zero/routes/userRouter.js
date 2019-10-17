@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ibmdb = require("ibm_db");
-var dsn = require("../DBconfig");
+var dsn1 = require("../DBconfig");
 
 router.get('/signup', function (req, res, next) {
     res.render('signup', {
@@ -23,7 +23,7 @@ router.post('/signup', (req, res, next) => {
         catVal: req.body.catVal
     };
     // db2 연결
-    ibmdb.open(dsn, function (err, conn) {
+    ibmdb.open(dsn1, function (err, conn) {
         // sql 구문_1
         conn.prepare("insert into company_user ( \
             company_id, company_pw, \
@@ -69,7 +69,7 @@ router.get('/login', function (req, res, next) {
 router.post('/login', function (req, res, next) {
     const result = { msg: '' };
 
-    ibmdb.open(dsn, function (err, conn) {
+    ibmdb.open(dsn1, function (err, conn) {
         if (err) { //에러처리
             console.log(err);
             return conn.closeSync();

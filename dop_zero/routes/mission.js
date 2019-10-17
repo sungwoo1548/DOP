@@ -21,7 +21,7 @@ console.log(`Wallet path: ${walletPath}`);
 
 // DB2 Connect
 var ibmdb = require("ibm_db");
-var dsn = require("../DBconfig")//;
+var dsn1 = require("../DBconfig")//;
 
 // Test ledger
 router.post('/testInsert', async (req, res, next) => {
@@ -58,7 +58,7 @@ router.post('/insert', async (req, res, next) => {
 
   // DB2 mission 입력
   let missions = [];
-  ibmdb.open(dsn, function (err, connection) {
+  ibmdb.open(dsn1, function (err, connection) {
     if (err) { // 에러처리
       console.log(err);
       return;
