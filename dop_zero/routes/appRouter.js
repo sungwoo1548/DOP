@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var ibmdb = require("ibm_db");
+<<<<<<< HEAD
 var dsn1 = require("../DBconfig");
 var dsn2 = require("../DBconfig_2");
+=======
+var dsn2 = require("../DBconfig");
+>>>>>>> master
 
 router.post('/checkId', (req, res, next) => {
     console.log(req.body);
@@ -126,13 +130,17 @@ router.post('/login', (req, res, next) => {
                 }
                 connection.close(function (err2) {
                     if (err2) console.log(err2); // 에러처리
+<<<<<<< HEAD
                     console.log("성우_db해제");
+=======
+>>>>>>> master
                 });
             });
         });
     });
 });
 
+<<<<<<< HEAD
 router.post('/getdata', (req, res, next) => {
     console.log(req.body);
     ibmdb.open(dsn1, function (err, conn) {
@@ -155,4 +163,6 @@ router.post('/getdata', (req, res, next) => {
       });
 });
 
+=======
+>>>>>>> master
 module.exports = router;

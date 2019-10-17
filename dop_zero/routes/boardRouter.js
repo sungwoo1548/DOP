@@ -34,6 +34,8 @@ router.post('/', function (req, res, next) {
   // const startDate = new Date(req.body.startDate).toLocaleDateString();
   // const endDate = new Date(req.body.endDate).toLocaleString();
 
+  var test_json = JSON.stringify(escape(req.body.inputGroupFile));  // ibm DB2에 json 형식 insert 문법.
+
   const result = {
     company_id: req.session.user_id,
     title: req.body.title,
@@ -43,7 +45,7 @@ router.post('/', function (req, res, next) {
     missionUserNum: req.body.missionUserNum,
     content: req.body.content,
     tag: req.body.tag,
-    inputGroupFile: req.body.inputGroupFile,
+    inputGroupFile: test_json,
     dataTime: timestamp,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
