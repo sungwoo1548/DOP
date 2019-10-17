@@ -79,7 +79,7 @@ router.post('/login', function (req, res, next) {
         // sql 구문_2
         const sql = `select * from company_user where company_id=?`
         conn.query(sql, [req.body.id], (err, rs, fields) => {
-            console.log(rs[0].COMPANY_ID);
+            // console.log(rs[0].COMPANY_ID);
             if (err) {
                 console.error(err.message);
                 result.msg = '다시 로그인해주세요';
