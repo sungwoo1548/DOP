@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var ibmdb = require("ibm_db");
-var dsn2 = require("../DBconfig");
+var dsn1 = require("../DBconfig");
+var dsn2 = require("../DBconfig_2");
 
 router.post('/checkId', (req, res, next) => {
     console.log(req.body);
@@ -125,10 +126,33 @@ router.post('/login', (req, res, next) => {
                 }
                 connection.close(function (err2) {
                     if (err2) console.log(err2); // 에러처리
+                    console.log("성우_db해제");
                 });
             });
         });
     });
+});
+
+router.post('/getdata', (req, res, next) => {
+    console.log(req.body);
+    ibmdb.open(dsn1, function (err, conn) {
+        if (err) { //에러처리
+          console.log(err);
+          return conn.closeSync();
+        }
+        // sql 구문
+        const sql = `select * from missions_form`;
+    
+        conn.query(sql, (err, rs, fields) => {
+          console.log("rs :"+rs);
+          res.send({
+            msg: rs
+          });
+        });
+        // 연결 종료
+        conn.close(function (err) { });
+        console.log("희자_ DB연결 해제");
+      });
 });
 
 module.exports = router;

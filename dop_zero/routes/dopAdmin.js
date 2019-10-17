@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var ibmdb = require("ibm_db");
-var dsn = require("../DBconfig");
+var dsn1 = require("../DBconfig");
 
 router.get('/', (req, res, next) => {
   let result = {
     rs: '자료 검색 오류'
   }
 
-  ibmdb.open(dsn, function (err, conn) {
+  ibmdb.open(dsn1, function (err, conn) {
     if (err) { // 에러처리
       console.log(err);
       return;
@@ -33,7 +33,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', function (req, res, next) {
   console.log(req.body);
-  ibmdb.open(dsn, function (err, conn) {
+  ibmdb.open(dsn1, function (err, conn) {
     if (err) { // 에러처리
       console.log(err);
       return;

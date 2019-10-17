@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var ibmdb = require("ibm_db");
 
-// var dsn2 = "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bjr81526;PWD=qsl^240pblh3qnmx;";
-var dsn = require("../DBconfig");
+// var dsn12 = "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bjr81526;PWD=qsl^240pblh3qnmx;";
+var dsn1 = require("../DBconfig");
 
 const crypto = require('crypto');
 
@@ -22,7 +22,7 @@ module.exports = router;
 
 // DB 저장 (inser into)
 router.get('/insertDB', (req, res, next) => {
-  ibmdb.open(dsn, function (err, conn) {
+  ibmdb.open(dsn1, function (err, conn) {
     // conn.prepare("insert into geotest (userid, geodata) VALUES (?, ?)", function (err, stmt) {
     conn.prepare("insert into COMPANYS (COMPANY_ID, COMPANY_BNUM, COMPANY_TEL) VALUES (?, ?, ?)", function (err, stmt) {
       if (err) { //에러처리
@@ -47,7 +47,7 @@ router.get('/insertDB', (req, res, next) => {
 
 // DB 읽기 (select)
 router.get('/readDB', (req, res, next) => {
-  ibmdb.open(dsn, function (err, connection) {
+  ibmdb.open(dsn1, function (err, connection) {
     if (err) { // 에러처리
       console.log(err);
       return;
@@ -69,7 +69,7 @@ router.get('/readDB', (req, res, next) => {
 router.get('/setUser', (req, res, next) => {
   var setId = req.query.id;
 
-  ibmdb.open(dsn, function (err, connection) {
+  ibmdb.open(dsn1, function (err, connection) {
     if (err) { // 에러처리
       console.log(err);
       return;
@@ -113,7 +113,7 @@ router.get('/setUser', (req, res, next) => {
 
 // map page
 router.get('/map', function(req, res, next) { 
-  ibmdb.open(dsn, function (err, connection) {
+  ibmdb.open(dsn1, function (err, connection) {
       if (err) {
           console.log(err);
           return;
