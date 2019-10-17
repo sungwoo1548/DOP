@@ -34,7 +34,7 @@ router.post('/', function (req, res, next) {
   // const startDate = new Date(req.body.startDate).toLocaleDateString();
   // const endDate = new Date(req.body.endDate).toLocaleString();
 
-  var test_json = JSON.stringify(escape(req.body.inputGroupFile));  // ibm DB2에 json 형식 insert 문법.
+  var test_json = escape(req.body.inputGroupFile);  // ibm DB2에 json 형식 insert 문법.
 
   const result = {
     company_id: req.session.user_id,
@@ -70,8 +70,7 @@ router.post('/', function (req, res, next) {
         return conn.closeSync();
       }
       console.log(result);
-      console.log(typeof(result.startDate));
-      console.log(typeof(result.endDate));
+
       // sql 구문_2
       stmt.execute([result.company_id, result.title,
       result.managerName, result.managerEmail,
