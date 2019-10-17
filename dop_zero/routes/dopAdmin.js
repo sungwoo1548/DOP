@@ -55,16 +55,9 @@ console.log(`Wallet path: ${walletPath}`);
 
 
 router.post('/', function (req, res, next) {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  console.log(req.body);
-  ibmdb.open(dsn1, function (err, conn) {
-=======
->>>>>>> merge_1
   let sign;
+  
   ibmdb.open(dsn, function (err, conn) {
->>>>>>> master
     if (err) { // 에러처리
       console.log(err);
       conn.close(function (err) { });
