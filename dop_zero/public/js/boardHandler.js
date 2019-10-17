@@ -1,4 +1,5 @@
-$(function(){
+ /*datapicker(달력) form*/
+ $(function(){
     $('.input-group.date').datepicker({
         calendarWeeks: false,
         todayHighlight: true,
@@ -6,18 +7,8 @@ $(function(){
         format: "yyyy/mm/dd",
         language: "kr"
     });
-}); //datapicker form
-
-;(function($){
-	$.fn.datepicker.dates['kr'] = {
-		days: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"],
-		daysShort: ["일", "월", "화", "수", "목", "금", "토", "일"],
-		daysMin: ["일", "월", "화", "수", "목", "금", "토", "일"],
-		months: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-		monthsShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-	};
-}(jQuery)); //datapicker form kr
-
+});
+ /*survey form(설문)*/
 function checkable(frm)
 {
     if( frm.surveyCheck.checked == true ){
@@ -25,5 +16,76 @@ function checkable(frm)
 	} else 
 	{
 	   frm.survey.disabled = true;
-	}
+    }
+    
+}function checkable2(frm)
+{
+    if( frm.surveyCheck2.checked == true ){
+	   frm.survey2.disabled = false;
+	} else 
+	{
+	   frm.survey2.disabled = true;
+    }
+    
+}function checkable3(frm)
+{
+    if( frm.surveyCheck3.checked == true ){
+	   frm.survey3.disabled = false;
+	} else 
+	{
+	   frm.survey3.disabled = true;
+    }
+    
 }
+/*adform 광고관리 */
+$(document).ready(function() {
+    $('').click(function() {
+
+
+});
+});
+
+/*Adform 광고등록*/
+$(document).ready(function() {
+    $('#btnSave').click(function () {
+        
+        const title = $('#title').val();
+        const managerName = $('#managerName').val();
+        const managerEmail1 = $('#managerEmail1').val();
+        const managerEmail2 = $('#managerEmail2').val();
+        const managerEmail = managerEmail1+managerEmail2;
+        const missionCondition = $('#missionCondition').val();
+        const missionUserNum = $('#missionUserNum').val();
+        const content = $('#content').val();
+        const tag = $('#tag').val();
+        const inputGroupFile = $('#inputGroupFile').val(); //주의
+        const startDate = $('#startDate').val();
+        const endDate = $('#endDate').val();
+        const survey = $('#survey').val();
+        const survey2 =$('#survey2').val();
+        const survey3 =$('#survey3').val();
+        const send_params = {
+            title,
+            managerName,
+            managerEmail,
+            missionCondition,
+            missionUserNum,
+            content,
+            tag,
+            inputGroupFile,
+            startDate,
+            endDate,
+            survey,
+            survey2,
+            survey3
+        };
+        alert('success');
+        console.log(send_params);
+        $.post('/board', send_params, (data, status)=>{
+            alert('등록이 끝났습니다.');
+            alert(data, status);
+            location.href = '/';
+        });
+
+    });
+});

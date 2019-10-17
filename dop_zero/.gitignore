@@ -95,10 +95,10 @@ typings/
 .dynamodb/
 
 # wallet directory
-.wallet/
+wallet/
 
 # Connection files
-.basic_articles/
+basic_articles/
 
 
 # End of https://www.gitignore.io/api/node

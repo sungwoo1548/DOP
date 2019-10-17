@@ -3,7 +3,7 @@ var router = express.Router();
 var ibmdb = require("ibm_db");
 
 // var dsn2 = "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bjr81526;PWD=qsl^240pblh3qnmx;";
-var dsn = require("../DBconfig")//;
+var dsn = require("../DBconfig");
 
 const crypto = require('crypto');
 
@@ -30,8 +30,8 @@ router.get('/insertDB', (req, res, next) => {
         return conn.closeSync();
       }
 
-      var test_json = { DataType: "BLOB", "Data": JSON.stringify("Heelo") };  // ibm DB2에 json 형식 insert 문법.
-      stmt.execute(['ana_nana', test_json, '000-0000-0000'], function (err, result) {
+      var test_json = { DataType: "BLOB", "Data": JSON.stringify({name:escape('한글'),age:'11'}) };  // ibm DB2에 json 형식 insert 문법.
+      stmt.execute(['manamna', test_json, '000-0000-0000'], function (err, result) {
         if (err) console.log(err); // 에러처리
         else {
           res.send("good");
@@ -47,64 +47,17 @@ router.get('/insertDB', (req, res, next) => {
 
 // DB 읽기 (select)
 router.get('/readDB', (req, res, next) => {
-  //     ibmdb.open(dsn, function (err, connection) {
-  //         if (err) { // 에러처리
-  //             console.log(err);
-  //             return;
-  //         }
-  //         // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
-  //         connection.query("select * from geotest", function (err1, readData) {
-  //             if (err1) console.log(err1); // 에러처리
-  //             else {
-  //                 let prams = [];
-  //                 let idx = 0;
-
-  //                 // Date 함수 생성자 호출을 하여 사용해야 입력한 값의 시간을 출력한다.
-  //                 for (let i = 0; i < readData.length; i++) {
-  //                     let transDate = (JSON.parse(readData[i].GEODATA).timestamp);
-  //                     let fDate = new Date(transDate+(1000*60*60*9));
-  //                     idx += 1;
-
-  //                     prams.push({
-  //                         idx: String(idx),
-  //                         userid: readData[i].USERID,
-  //                         timestamp: fDate.toLocaleString(),
-  //                         timestamp_original: JSON.stringify(JSON.parse(readData[i].GEODATA).timestamp),
-  //                         longitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.longitude),
-  //                         latitude: JSON.stringify(JSON.parse(readData[i].GEODATA).coords.latitude),
-  //                     });
-  //                 }
-  //                 res.json(prams);
-  //                 // res.render('showdata', { data: readData }) // showdata 페이지 렌더
-  //             }
-  //             connection.close(function (err2) {
-  //                 if (err2) console.log(err2); // 에러처리
-  //             });
-  //         });
-  //     });
-
-  let missions = [];
   ibmdb.open(dsn, function (err, connection) {
     if (err) { // 에러처리
       console.log(err);
       return;
     }
-    // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
-    connection.query("select * from geotest", function (err1, readData) {
+    // Query문
+    connection.query("select * from companys", function (err1, readData) {
       if (err1) console.log(err1); // 에러처리
       else {
-        let transDate = (JSON.parse(readData[0].GEODATA).timestamp);
-        let fDate = new Date(transDate + (1000 * 60 * 60 * 9));
-        let idx = 0;
-
-        missions.push({
-          idx: String(idx),
-          userid: readData[0].USERID,
-          timestamp: fDate.toLocaleString(),
-          timestamp_original: JSON.stringify(JSON.parse(readData[0].GEODATA).timestamp),
-          longitude: JSON.stringify(JSON.parse(readData[0].GEODATA).coords.longitude),
-          latitude: JSON.stringify(JSON.parse(readData[0].GEODATA).coords.latitude),
-        });
+        console.log(readData);
+        console.log(unescape(JSON.parse(readData[3].COMPANY_BNUM).name)); // 한글 출력
       }
       connection.close(function (err2) {
         if (err2) console.log(err2); // 에러처리
@@ -156,6 +109,69 @@ router.get('/setUser', (req, res, next) => {
     });
   });
 
+});
+
+// map page
+router.get('/map', function(req, res, next) { 
+  ibmdb.open(dsn, function (err, connection) {
+      if (err) {
+          console.log(err);
+          return;
+      }
+      connection.query("select * from geotest", function (err1, readData) {
+          if(err1) console.log(err1);
+              else {
+              var lat = [];
+              var lon = [];
+              var list = [];
+              var useridList = [];
+              var userid = [];
+              var timestamp = [];
+
+              for(var i=0; i<readData.length; i++){
+              userid[i] =readData[i].USERID;
+              //console.log(userid[i]); undefined..
+              timestamp[i] = new Date(JSON.parse(readData[i].GEODATA).timestamp).
+                                      toLocaleString('ko-KR', {timeZone: 'Asia/Seoul'});
+              lat[i] = JSON.parse(readData[i].GEODATA).coords.latitude;
+              lon[i] = JSON.parse(readData[i].GEODATA).coords.longitude; 
+              list[i] = [userid[i],timestamp[i],lat[i],lon[i]];
+              }
+              console.log(timestamp);
+              //console.log(readData);
+              //console.log(list);
+              //res.render('map', { data: list, useridList: useridList })
+              connection.query("select distinct userid from geotest", (err3, readUserid) => {
+                  if (err3) console.log(err3);
+                  else {
+                      for (var i in readUserid) {
+                          useridList.push(String(Object.values(readUserid[i])));
+                      }
+                      useridList.forEach((ele, idx) => {
+                          var strList = ele.split(' ');
+                          //useridList[idx] = strList[0];
+                          console.log(useridList[idx]);
+                      })
+                      
+                      //console.log('useridList', useridList);
+                      //console.log('useridList Length', useridList.length);
+                      //console.log(useridList[0], useridList[1]);
+                      res.render('map', {
+                          data: [
+                              { geodata: list },
+                              { useridList: useridList }
+                          ]
+                      });
+                  }
+              });
+          }
+
+
+          connection.close(function (err2) {
+              if (err2) console.log(err2); // 에러처리
+          });
+      })
+  })       
 });
 
 // import Sha256 from '//cdn.jsdelivr.net/gh/chrisveness/crypto@latest/sha256.js';

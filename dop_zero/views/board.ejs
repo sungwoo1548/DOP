@@ -1,96 +1,76 @@
 <% layout('layout/layout')%>
-<script src="/js/boardHandler.js"></script>
-
 <style>
     body {
-      padding-top: 70px;   
-      padding-bottom: 30px;
+        padding-top: 70px;
+        padding-bottom: 30px;
     }
 </style>
-
 <!-- 광고관리 게시판 -->
 <br>
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">광고관리 Table</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">광고등록 Form</a>
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+            aria-controls="nav-home" aria-selected="true">광고관리 Table</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            aria-controls="nav-profile" aria-selected="false">광고등록 Form</a>
         <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a> -->
     </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
+</nav>
+<div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <table class="table table-hover">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">광고상태</th>
-                <th scope="col">광고명</th>
-                <th scope="col">광고요청일</th>
-                <th scope="col">진행현황</th>
-                <th scope="col">광고시작일</th>
-                <th scope="col">광고마감일</th>
-                <th scope="col">관리</th>
+                    <th scope="col">#</th>
+                    <th scope="col">상태</th>
+                    <th scope="col">광고명</th>
+                    <th scope="col">광고요청일</th>
+                    <th scope="col">총원</th>
+                    <th scope="col">광고시작일</th>
+                    <th scope="col">광고마감일</th>
+                    <th scope="col">관리</th>
                 </tr>
             </thead>
             <tbody>
+                <% result.forEach((el,idx) => {%>
                 <tr>
-                <td>1</td> <!-- 광고 Num -->
-                <th scope="row"><a href="#" class="badge badge-secondary">마감</a></th>
-                <td>test1</td> <!-- 광고명 -->
-                <td>19-09-01</td> <!-- 광고요청일 -->
-                <td>10/10</td> <!-- 진행현황 -->
-                <td>19-09-02</td> <!-- 광고시작일 -->
-                <td>19-09-03</td> <!-- 광고마감일 -->
-                <td> <!-- 관리버튼 -->
-                    <button class="btn btn-sm btn-primary">재등록</button>
-                </td> 
+                    <td><%=idx%></td> <!-- 광고 Num -->
+                    <%if(el.ADSTATE=='waiting') {%>
+                    <th scope="row"><a href="#" class="badge badge-success"><%=el.ADSTATE%></a></th>
+                    <%} else if(el.ADSTATE=='approval') {%>
+                    <th scope="row"><a href="#" class="badge badge-primary"><%=el.ADSTATE%></a></th>
+                    <%} else if(el.ADSTATE=='refusal') {%>
+                    <th scope="row"><a href="#" class="badge badge-danger"><%=el.ADSTATE%></a></th>
+                    <%} else if(el.ADSTATE=='end') {%>
+                    <th scope="row"><a href="#" class="badge badge-secondary"><%=el.ADSTATE%></a></th>
+                    <%}%>
+                    <td><%=el.TITLE%></td> <!-- 광고명 -->
+                    <td><%=el.DATETIME%></td> <!-- 광고요청일 -->
+                    <td><%=el.MISSIONUSERNUM%></td> <!-- 진행현황 -->
+                    <td><%=el.STARTDATE%></td> <!-- 광고시작일 -->
+                    <td><%=el.ENDDATE%></td> <!-- 광고마감일 -->
+                    <td>
+                        <!-- 관리버튼 -->
+                        <%if(el.ADSTATE=='waiting') {%>
+                        <button class="btn btn-sm btn-primary">수정</button> /
+                        <button class="btn btn-sm btn-primary">요청취소</button>
+                        <%} else if(el.ADSTATE=='approval') {%>
+                        <button class="btn btn-sm btn-primary">마감</button> /
+                        <button class="btn btn-sm btn-primary">재등록</button>
+                        <%} else if(el.ADSTATE=='refusal') {%>
+                        <button class="btn btn-sm btn-primary">수정</button> /
+                        <button class="btn btn-sm btn-primary">재등록요청</button>
+                        <%} else if(el.ADSTATE=='end') {%>
+                        <button class="btn btn-sm btn-primary">재등록</button>
+                        <%}%>
+                    </td> 
                 </tr>
-        
-                <tr>
-                <td>2</td> <!-- 광고 Num -->
-                <th scope="row"><a href="#" class="badge badge-primary">진행중</a></th>
-                <td>test2</td> <!-- 광고명 -->
-                <td>19-10-8</td> <!-- 광고요청일 -->
-                <td>4/15</td> <!-- 진행현황 -->
-                <td>19-10-9</td> <!-- 광고시작일 -->
-                <td>19-10-10</td> <!-- 광고마감일 -->
-                <td> <!-- 관리버튼 -->
-                    <button class="btn btn-sm btn-primary">마감</button> /
-                    <button class="btn btn-sm btn-primary">재등록</button>
-                </td> 
-                </tr>
-        
-                <tr>
-                <td>3</td> <!-- 광고 Num -->                    
-                <th scope="row"><a href="#" class="badge badge-success">승인대기</a></th>
-                <td>test3</td> <!-- 광고명 -->
-                <td>19-10-10</td> <!-- 광고요청일 -->
-                <td>0/25</td> <!-- 진행현황 -->
-                <td>19-10-11</td> <!-- 광고시작일 -->
-                <td>19-10-12</td> <!-- 광고마감일 -->
-                <td> <!-- 관리버튼 -->
-                    <button class="btn btn-sm btn-primary">요청취소</button>
-                </td>
-
-                <tr>
-                <td>4</td> <!-- 광고 Num -->
-                <th scope="row"><a href="#" class="badge badge-danger">승인거절</a></th>
-                <td>test4</td> <!-- 광고명 -->
-                <td>19-10-5</td> <!-- 광고요청일 -->
-                <td>0/5</td> <!-- 진행현황 -->
-                <td>19-10-7</td> <!-- 광고시작일 -->
-                <td>19-10-8</td> <!-- 광고마감일 -->
-                <td> <!-- 관리버튼 -->
-                    <button class="btn btn-sm btn-primary">수정</button> /
-                    <button class="btn btn-sm btn-primary">재등록요청</button>
-                </td> 
-                </tr>
+                <%})%>
             </tbody>
         </table>
     </div>
 
-
-<!-- 광고등록 -->
+    <!-- 광고등록 -->
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="container" role="main">
             <form name="form" id="form" role="form" method="post">
@@ -98,26 +78,11 @@
                     <label for="title">제목</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
                 </div>
-            <form name="formManager" class="formManager">
-            <fieldset>
-                <legend>담당자정보</legend>
-                <div class="form-group">
-                    <label for="companyName">회사명</label>
-                    <input type="text" class="form-control" id="companyName">
-                </div>
-                <!-- 주소 API 써야할 듯함 -->
-                <div class="form-group">
-                    <label for="companyAddress">회사 주소</label>
-                    <input type="text" class="form-control" id="companyAddress">
-                </div>
-                <div class="form-group">
-                    <label for="companyURL">회사 URL</label>
-                    <input type="text" class="form-control" id="companyURL">
-                </div>
-                <div class="form-group">
-                    <label for="managerName">담당자 이름</label>
-                    <input type="text" class="form-control" id="managerName">
-                </div>
+                <form name="formManager" class="formManager">
+                    <div class="form-group">
+                        <label for="managerName">담당자 이름</label>
+                        <input type="text" class="form-control" id="managerName">
+                    </div>
                     <label for="managerEmail1">담당자 Email 주소</label>
                     <div class="form-row">
                         <div class="form-group col">
@@ -139,34 +104,34 @@
                             </select>
                         </div>
                     </div>
-                </fieldset>
+                    </fieldset>
                 </form>
-
                 <div class="mb-3">
                     <label for="mission_condition">미션조건</label>
-                    <input type="text" class="form-control" name="missionRule" id="missionRule" placeholder="미션조건을 입력해 주세요">
+                    <input type="text" class="form-control" name="missionCondition" id="missionCondition"
+                        placeholder="미션조건을 입력해 주세요">
                 </div>
-        
+
                 <div class="mb-3">
                     <label for="mission_user_num">참가자수</label>
-                    <input type="text" class="form-control" name="missionUserNum" id="missionUserNum" placeholder="미션 참가자 수를 입력해주세요">
+                    <input type="text" class="form-control" name="missionUserNum" id="missionUserNum"
+                        placeholder="미션 참가자 수를 입력해주세요">
                 </div>
 
                 <div class="mb-3">
                     <label for="content">광고 상세내용</label><br>
-                    <textarea class="form-control" rows="30" name="content" id="content" placeholder="광고 상세내용을 입력해 주세요" ></textarea>
+                    <textarea class="form-control" rows="30" name="content" id="content"
+                        placeholder="광고 상세내용을 입력해 주세요"></textarea>
                 </div>
-        
+
                 <div class="mb-3">
                     <label for="tag">상품</label>
                     <input type="text" class="form-control" name="tag" id="tag" placeholder="상품을 입력해 주세요">
                 </div>
-                <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile" accept="image/jpeg" multiple="multiple">
-                        <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon02">Choose images file</label>
-                    </div>
+                <div class="filebox bs3-primary preview-image">
+                    <input type="file" accept="image/*" id="inputGroupFile" class="upload-hidden">
                 </div>
+                <label class="caution">* 파일은 jpg, png, gif 파일만 허용됩니다. </label><br />
                 <div class="mb-3">
                     <label for="startDate">날짜 선택</label><br>
                     <div class="ui-datepicker" style="float:left">
@@ -178,9 +143,8 @@
                     </div>
                     <br>
                 </div>
-                
                 <div class="mb-3">
-                    <div class="d-flex p-2 bd-highlight" >
+                    <div class="d-flex p-2 bd-highlight">
                         <label for="survey">설문조사</label>
                     </div>
                     <div>
@@ -188,30 +152,29 @@
                     </div>
                     <br>
                     <form>
-                    <a>1.</a><input type="checkbox" name="surveyCheck" onclick="checkable(this.form)"></input>
-                    <input type="text" class="form-control" name="survey1" id="survey1" disabled>
+                        <a>1.</a><input type="checkbox" name="surveyCheck" onclick="checkable(this.form)"></input>
+                        <input type="text" class="form-control" name="survey" id="survey" disabled>
                     </form>
                     <br>
                     <form>
-                    <a>2.</a><input type="checkbox" name="surveyCheck" onclick="checkable(this.form)" ></input>
-                    <input type="text" class="form-control" name="survey2" id="survey2" disabled>
+                        <a>2.</a><input type="checkbox" name="surveyCheck2" onclick="checkable2(this.form)"></input>
+                        <input type="text" class="form-control" name="survey2" id="survey2" disabled>
                     </form>
                     <br>
                     <form>
-                    <a>3.</a><input type="checkbox" name="surveyCheck" onclick="checkable(this.form)"></input>
-                    <input type="text" class="form-control" name="survey3" id="survey3" disabled>
+                        <a>3.</a><input type="checkbox" name="surveyCheck3" onclick="checkable3(this.form)"></input>
+                        <input type="text" class="form-control" name="survey3" id="survey3" disabled>
                     </form>
                     <br>
                 </div>
             </form>
-
-            <div >
-                <button type="button" class="btn btn-sm btn-primary" id="btnSave" onclick="missionInsert()">저장</button>
-                <button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="location.reload()">목록</button>
+            <div>
+                <button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
             </div>
         </div>
     </div>
     <!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
     </div> -->
-</body>
-</html>
+    </body>
+    </html>

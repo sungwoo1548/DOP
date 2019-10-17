@@ -3,146 +3,152 @@
 <div class="container">
 
     <h1>회원가입</h1>
-    <form>
-        <label for="signupID">ID</label>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="signupID" placeholder="ID">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="IDdupCheck"></label>
-                <button id="IDdupCheck" class="btn btn-primary" value="">ID 중복 확인</button>
-            </div>
+
+    <label for="signupID">ID</label>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="signupID" placeholder="ID">
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="signupPassword">비밀번호</label>
-                <input type="password" class="form-control" id="signupPassword"
-                    pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" placeholder="Password">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="passwordCheck">비밀번호 확인</label>
-                <input type="password" class="form-control" id="passwordCheck" placeholder="Password">
-            </div>
+        <div class="form-group col-md-6">
+            <label for="IDdupCheck"></label>
+            <button id="IDdupCheck" class="btn btn-primary" value="">ID 중복 확인</button>
         </div>
-        <div class="form-group">
-            <label class="caution">* 비밀번호는 8 ~ 16자의 영문 대소문자, 숫자 및 특수문자 사용을 하십시오. </label><br />
-            <button id="passwordCheckBtn" class="btn btn-primary" value="">비밀번호 검증 확인</button>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="signupPassword">비밀번호</label>
+            <input type="password" class="form-control" id="signupPassword" placeholder="Password">
         </div>
-        <label for="signupEmailID">Email 주소</label>
-        <div class="form-row">
-            <div class="form-group col">
-                <input type="email" class="form-control" id="signupEmailID1" placeholder="">
-            </div>
-            <div class="form-group col-auto">
-                @
-            </div>
-            <div class="form-group col">
-                <select class="form-control" id="signupEmailID2">
-                    <option value="">도메인 선택을 바랍니다. </option>
-                    <option value="@naver.com">naver.com</option>
-                    <option value="@hanmail.net">hanmail.net</option>
-                    <option value="@nate.com">nate.com</option>
-                    <option value="@daum.net">daum.net</option>
-                    <option value="@hotmail.com">hotmail.com</option>
-                    <option value="@dreamwiz.com">dreamwiz.com</option>
-                    <option value="@gmail.com">gmail.com</option>
-                </select>
-            </div>
+        <div class="form-group col-md-6">
+            <label for="passwordCheck">비밀번호 확인</label>
+            <input type="password" class="form-control" id="passwordCheck" placeholder="Password">
         </div>
-        <label for="carrierProvider">연락처</label>
-        <div class="form-row">
-            <div class="form-group col">
-                <select class="form-control" id="carrierProvider">
-                    <option value="SKT">SKT</option>
-                    <option value="KT">KT</option>
-                    <option value="LG">LG</option>
-                </select>
-            </div>
-            <div class="form-group col">
-                <select class="form-control" id="phoneNumber1">
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="016">016</option>
-                    <option value="017">017</option>
-                    <option value="018">018</option>
-                    <option value="019">019</option>
-                </select>
-            </div>
-            <div class="form-group col-auto">
-                -
-            </div>
-            <div class="form-group col">
-                <input type="text" class="form-control" id="phoneNumber2" placeholder="">
-            </div>
-            <div class="form-group col-auto">
-                -
-            </div>
-            <div class="form-group col">
-                <input type="text" class="form-control" id="phoneNumber3" placeholder="">
-            </div>
-            <div class="form-group col-auto">
-                <input type="button" class="btn btn-primary" id="certNumSend" value="인증번호 발송">
-            </div>
+    </div>
+    <div class="form-group">
+        <label class="caution">* 비밀번호는 8 ~ 15자의 영문 대소문자, 숫자 및 특수문자 사용을 하십시오. </label><br />
+        <button id="passwordCheckBtn" class="btn btn-primary" value="">비밀번호 검증 확인</button>
+    </div>
+    <label for="signupEmailID1">Email 주소</label>
+    <div class="form-row">
+        <div class="form-group col">
+            <input type="email" class="form-control" id="signupEmailID1" placeholder="">
         </div>
-        <label for="certNum">인증번호</label>
-        <div class="form-row">
-            <div class="form-group col">
-                <input type="text" class="form-control" id="certNum" placeholder="">
-            </div>
-            <div class="form-group col-auto">
-                <input type="button" class="btn btn-primary" id="certNumCheckBtn" value="인증번호 확인">
-            </div>
+        <div class="form-group col-auto">
+            @
         </div>
-        <label for="companyRegNumber1">사업자 등록 번호</label>
-        <div class="form-row">
-            <div class="form-group col">
-                <input type="text" class="form-control" id="companyRegNumber1" placeholder="">
-            </div>
-            <div class="form-group col-auto">
-                -
-            </div>
-            <div class="form-group col">
-                <input type="text" class="form-control" id="companyRegNumber2" placeholder="">
-            </div>
-            <div class="form-group col-auto">
-                -
-            </div>
-            <div class="form-group col">
-                <input type="text" class="form-control" id="companyRegNumber3" placeholder="">
-            </div>
+        <div class="form-group col">
+            <select class="form-control" id="signupEmailID2">
+                <option value="">도메인 선택을 바랍니다. </option>
+                <option value="@naver.com">naver.com</option>
+                <option value="@hanmail.net">hanmail.net</option>
+                <option value="@nate.com">nate.com</option>
+                <option value="@daum.net">daum.net</option>
+                <option value="@hotmail.com">hotmail.com</option>
+                <option value="@dreamwiz.com">dreamwiz.com</option>
+                <option value="@gmail.com">gmail.com</option>
+            </select>
         </div>
-        <div class="form-group">
-            <label for="companyName">회사명</label>
-            <input type="text" class="form-control" id="companyName">
+    </div>
+    <label for="carrierProvider">연락처</label>
+    <div class="form-row">
+        <div class="form-group col">
+            <select class="form-control" id="ISP">
+                <option value="SKT">SKT</option>
+                <option value="KT">KT</option>
+                <option value="LG">LG</option>
+            </select>
         </div>
-        <!-- 주소 API 써야할 듯함 -->
-        <div class="form-group">
-            <label for="companyAddress">회사 주소</label>
-            <input type="text" class="form-control" id="companyAddress">
+        <div class="form-group col">
+            <select class="form-control" id="phoneNumber1">
+                <option value="010">010</option>
+                <option value="011">011</option>
+                <option value="016">016</option>
+                <option value="017">017</option>
+                <option value="018">018</option>
+                <option value="019">019</option>
+            </select>
         </div>
-        <div class="form-group">
-            <label for="companyURL">회사 URL</label>
-            <input type="text" class="form-control" id="companyURL">
+        <div class="form-group col-auto">
+            -
         </div>
-        <label>업종 분류</label>
-        <div class="form-group">
-            <div class="category">
-                <input type="checkbox" value="beverage" id="category01"><label for="category01">음료</label>
-                <input type="checkbox" value="cloth" id="category02"><label for="category02">의류</label>
-                <input type="checkbox" value="fastfood" id="category03"><label for="category03">패스트푸드</label>
-                <input type="checkbox" value="restaurant" id="category04"><label for="category04">레스토랑</label>
-                <input type="checkbox" value="bakery" id="category05"><label for="category05">베이커리 도넛</label>
-                <input type="checkbox" value="bar" id="category06"><label for="category06">바(bar)</label>
-                <input type="checkbox" value="dessert" id="category07"><label for="category07">아이스크림 디저트</label>
-                <input type="checkbox" value="lunchbox" id="category08"><label for="category08">도시락</label>
-            </div>
+        <div class="form-group col">
+            <input type="text" class="form-control" id="phoneNumber2" placeholder="">
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" >Sign Up</button>
-            <button type="reset" class="btn btn-primary" onclick="location.reload()">Reset</button>
+        <div class="form-group col-auto">
+            -
         </div>
-    </form>
+        <div class="form-group col">
+            <input type="text" class="form-control" id="phoneNumber3" placeholder="">
+        </div>
+        <div class="form-group col-auto">
+            <input type="button" class="btn btn-primary" id="certNumSend" value="인증번호 발송">
+        </div>
+    </div>
+    <label for="certNum">인증번호</label>
+    <div class="form-row">
+        <div class="form-group col">
+            <input type="text" class="form-control" id="certNum" placeholder="">
+        </div>
+        <div class="form-group col-auto">
+            <input type="button" class="btn btn-primary" id="certNumCheckBtn" value="인증번호 확인">
+        </div>
+    </div>
+    <label for="companyRegNumber1">사업자 등록 번호</label>
+    <div class="form-row">
+        <div class="form-group col">
+            <input type="text" class="form-control" id="companyidenNumber1" placeholder="">
+        </div>
+        <div class="form-group col-auto">
+            -
+        </div>
+        <div class="form-group col">
+            <input type="text" class="form-control" id="companyidenNumber2" placeholder="">
+        </div>
+        <div class="form-group col-auto">
+            -
+        </div>
+        <div class="form-group col">
+            <input type="text" class="form-control" id="companyidenNumber3" placeholder="">
+        </div>
+    </div>
+    <div class="filebox bs3-primary preview-image">
+        <input class="upload-name" value="파일선택" disabled="disabled" style="width: 200px;">
+    
+        <label for="input_file">업로드</label>
+        <input type="file" id="input_file" accept="image/*" class="upload-hidden">
+    </div>
+    <label class="caution">* 파일은 jpg, png, gif 파일만 허용됩니다. </label><br />
+
+    <div class="form-group">
+        <label for="companyName">회사명</label>
+        <input type="text" class="form-control" id="companyName">
+    </div>
+    <!-- 주소 API 써야할 듯함 -->
+    <div class="form-group">
+        <label for="companyLocation">회사 주소</label>
+        <input type="text" class="form-control" id="companyLocation">
+    </div>
+    <div class="form-group">
+        <label for="companyURL">회사 URL</label>
+        <input type="text" class="form-control" id="companyURL">
+    </div>
+    <label>업종 분류</label>
+    <div class="form-group">
+        <div>
+            <input type="checkbox" name="category" value="beverage" id="category01"><label for="category01">음료</label>
+            <input type="checkbox" name="category" value="cloth" id="category02"><label for="category02">의류</label>
+            <input type="checkbox" name="category" value="fastfood" id="category03"><label for="category03">패스트푸드</label>
+            <input type="checkbox" name="category" value="restaurant" id="category04"><label for="category04">레스토랑</label>
+            <input type="checkbox" name="category" value="bakery" id="category05"><label for="category05">베이커리 도넛</label>
+            <input type="checkbox" name="category" value="bar" id="category06"><label for="category06">바(bar)</label>
+            <input type="checkbox" name="category" value="dessert" id="category07"><label for="category07">아이스크림 디저트</label>
+            <input type="checkbox" name="category" value="lunchbox" id="category08"><label for="category08">도시락</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" id="signupBtn">Sign Up</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+    </div>
     <div style="display:inline-block">
         <button type="button" class="btn btn-outline-dark" onclick="location.href='./login'">혹시 ID가 이미 있으신가요??</button>
     </div>

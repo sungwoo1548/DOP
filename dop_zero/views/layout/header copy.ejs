@@ -1,0 +1,39 @@
+<%if(loginState){ %>
+<div class="middle">
+  <div class="menu">
+    <li class="item" id='profile'>
+      <a href="#profile" class="btn"><i class="far fa-user"></i><%=user_id%>'s Profile</a>
+      <div class="smenu">
+        <a href="#">내정보수정</a>
+      </div>
+    </li>
+    <li class="item" id="messages">
+      <a href="#messages" class="btn"><i class="far fa-envelope"></i>Ticket</a>
+      <div class="smenu">
+        <a href="#">보유 티켓 : 3</a>
+        <a href="#">티켓 구매</a>
+      </div>
+    </li>
+  </div>
+  <br>
+  <%} else {%>
+  <%}%>
+
+<div class="container-fluid">
+    <!-- Navigation 메뉴바 -->
+    <div class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">
+            DOP DEMO
+        </a>
+        <div>
+            <a href="/" class="btn btn-outline-light">Home</a>
+            <%if(loginState){ %>
+  <a href="/board" class="btn btn-outline-light">광고관리</a>
+  <a href="/user/logout" class="btn btn-outline-light">Logout</a>
+  <%} else {%>
+  <a href="/user/login" class="btn btn-outline-light">Login</a>
+  <%}%>
+            <!-- 추가하려면 a 태그 삽입. -->
+</div>
+</div>
+</div>

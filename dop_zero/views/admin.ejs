@@ -1,8 +1,47 @@
 <% layout('layout/layout')%>
+<script src="/js/admin.js"></script>
 
-<div class="container">
-
-  <h1>admin page</h1>
-  <h1>hello, admin</h1>
-
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">상태</th>
+                    <th scope="col">광고명</th>
+                    <th scope="col">광고요청일</th>
+                    <th scope="col">총원</th>
+                    <th scope="col">광고시작일</th>
+                    <th scope="col">광고마감일</th>
+                    <th scope="col">관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%result.forEach((el,idx) => {%>
+                    <tr>
+                        <td><%=idx+1%></td> <!-- 광고 Num -->
+                        <%if(el.ADSTATE=='waiting') {%>
+                        <th scope="row"><a href="#" class="badge badge-success"><%=el.ADSTATE%></a></th>
+                        <%} else if(el.ADSTATE=='approval') {%>
+                        <th scope="row"><a href="#" class="badge badge-primary"><%=el.ADSTATE%></a></th>
+                        <%} else if(el.ADSTATE=='refusal') {%>
+                        <th scope="row"><a href="#" class="badge badge-danger"><%=el.ADSTATE%></a></th>
+                        <%} else if(el.ADSTATE=='end') {%>
+                        <th scope="row"><a href="#" class="badge badge-secondary"><%=el.ADSTATE%></a></th>
+                        <%}%>
+                        <td><%=el.TITLE%></td> <!-- 광고명 -->
+                        <td><%=el.DATETIME%></td> <!-- 광고요청일 -->
+                        <td><%=el.MISSIONUSERNUM%></td> <!-- 진행현황 -->
+                        <td><%=el.STARTDATE%></td> <!-- 광고시작일 -->
+                        <td><%=el.ENDDATE%></td> <!-- 광고마감일 -->
+                        <td>
+                            <!-- 관리버튼 -->
+                            <button class="btn btn-sm btn-primary" name="approval" id="<%=idx+1%>">승인</button> /
+                            <button class="btn btn-sm btn-primary" name="refusal" id="<%=idx+1%>">거절</button>
+                        </td> 
+                    </tr>
+                    <%})%>
+            </tbody>
+        </table>
+    </div>
 </div>
