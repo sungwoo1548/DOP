@@ -57,7 +57,8 @@ console.log(`Wallet path: ${walletPath}`);
 router.post('/', function (req, res, next) {
   let sign;
   
-  ibmdb.open(dsn, function (err, conn) {
+  ibmdb.open(dsn1, function (err, conn) {
+    console.log("11111");
     if (err) { // 에러처리
       console.log(err);
       conn.close(function (err) { });
@@ -78,7 +79,7 @@ router.post('/', function (req, res, next) {
           //res.json(JSON.stringify(rs1));
 
           if (sign == true) {
-            ibmdb.open(dsn, function (err, conn) {
+            ibmdb.open(dsn1, function (err, conn) {
               // sql_v2
               const sql = `select * from missions_form where postnumber='${req.body.test}'`
               conn.query(sql, async (err, rs3, fields) => {
