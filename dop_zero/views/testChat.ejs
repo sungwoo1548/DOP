@@ -1,0 +1,53 @@
+<% layout('layout/layout')%>
+<style>
+    .chat_log {
+        width: 95%;
+        height: 200px;
+    }
+
+    .name {
+        width: 10%;
+    }
+
+    .message {
+        width: 70%;
+    }
+
+    .chat {
+        width: 10%;
+    }
+</style>
+
+<div class="container-fluid text-truncate">
+    <h1>채팅 방 입니다.</h1>
+</div>
+<br />
+<hr />
+<div class="container-fluid">
+    <div>
+        <textarea id="chatLog" class="chat_log" readonly></textarea>
+    </div>
+    <form id="chat">
+        <input id="name" class="name" type="text" readonly>
+        <input id="message" class="message" type="text">
+        <input type="submit" class="chat" value="chat" />
+    </form>
+    <div id="box" class="box">
+        <script src="/socket.io/socket.io.js"></script> <!-- 1 -->
+        <script>
+            var socket = io(); //1
+            $('#chat').on('submit', function (e) { //2
+                socket.emit('send message', $('#name').val(), $('#message').val());
+                $('#message').val('');
+                $('#message').focus();
+                e.preventDefault();
+            });
+            socket.on('receive message', function (msg) { //3
+                $('#chatLog').append(msg + '\n');
+                $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
+            });
+            socket.on('change name', function (name) { //4
+                $('#name').val(name);
+            });
+        </script>
+    </div>

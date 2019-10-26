@@ -22,6 +22,7 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/dop', require('./routes/dopRouter')); // .../dop url 접속 처리
 app.use('/app', require('./routes/appRouter')); // .../app url 접속 처리
+app.use('/test', require('./routes/testRouter')); // .../test url 접속 처리
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
