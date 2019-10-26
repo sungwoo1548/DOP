@@ -50,7 +50,7 @@ router.get('/readDB', (req, res, next) => {
         connection.query("select * from geotest", function (err1, readData) {
             if (err1) console.log(err1); // 에러처리
             else {
-                console.log(JSON.parse(readData[15].GEODATA));
+                // console.log(JSON.parse(readData[15].GEODATA));
                 res.render('showdata', { data: readData }) // showdata 페이지 렌더
             }
             connection.close(function (err2) {
@@ -60,6 +60,33 @@ router.get('/readDB', (req, res, next) => {
     });
 });
 
+// user map
+router.get('/usermap', (req, res, next) => {
+    res.render('usermap');
+});
+
+
+router.post('/usermap', (req, res, next) => {
+    var userid = req.body.userid;
+    console.log(userid);
+    ibmdb.open(dsn, function (err, connection) {
+        if (err) { // 에러처리
+            console.log(err);
+            return;
+        }
+        // 특정 id data 불러올 때 : "select * from geotest where userid='321'"
+        connection.query(`select geodata from geotest where userid='${userid}'`, function (err1, readData) {
+            if (err1) console.log(err1); // 에러처리
+            else {
+                console.log(JSON.stringify(readData[0]));
+                res.json(readData);
+            }
+            connection.close(function (err2) {
+                if (err2) console.log(err2); // 에러처리
+            });
+        });
+    });
+});
 
 
 module.exports = router;
