@@ -10,7 +10,7 @@
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "ejs-locals": "^1.0.2",
-    "express": "~4.16.1",
+    "express": "~4.18.2",
     "http-errors": "~1.6.3",
     "ibm_db": "^2.6.0",
     "morgan": "~1.9.1",
